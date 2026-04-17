@@ -1,0 +1,38 @@
+# Dependencies
+/vendor/
+
+# Build outputs
+/release/
+
+# Package managers
+composer.lock
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+*-debug.log
+*-error.log
+
+# Editor / IDE
+/.vscode/
+!.vscode/extensions.json
+/.idea/
+*.suo
+*.sw?
+
+# macOS
+**/.DS_Store
+
+# AI coding tools
+/.claude/settings.local.json
+/.aider*
+/.trae/
+/.remember/
+
+# Misc
+*.local
+*.zip
