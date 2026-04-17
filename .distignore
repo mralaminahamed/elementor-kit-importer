@@ -1,0 +1,7 @@
+.*
+demos
+release
+vendor
+*.md
+*.json
+*.lock

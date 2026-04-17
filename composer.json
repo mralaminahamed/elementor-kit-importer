@@ -1,0 +1,37 @@
+{
+  "name": "mralaminahamed/elementor-settings-updater",
+  "description": "Import Elementor global settings from legacy v0.4 and Elementor v4 JSON formats.",
+  "license": "GPL-2.0-or-later",
+  "type": "wordpress-plugin",
+  "version": "2.0.0",
+  "authors": [
+    {
+      "name": "Al Amin Ahamed",
+      "email": "mrabir.ahamed@gmail.com",
+      "homepage": "https://alaminahamed.com",
+      "role": "Author"
+    }
+  ],
+  "require": {
+    "php": "^7.4",
+    "ext-json": "*"
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "platform": {
+      "php": "7.4"
+    },
+    "sort-packages": false
+  },
+  "scripts": {
+    "release": [
+      "rm -rf release",
+      "mkdir -p release",
+      "composer install --no-dev --optimize-autoloader",
+      "rsync -av --exclude-from=.distignore . release/elementor-settings-updater/",
+      "cd release && zip -r elementor-settings-updater.zip elementor-settings-updater/",
+      "rm -rf release/elementor-settings-updater/",
+      "composer install"
+    ]
+  }
+}
