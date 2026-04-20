@@ -194,7 +194,7 @@ class Elementor_Site_Settings_Updater {
 	 * Register legacy compatibility adapter for Elementor imports
 	 */
 	public function register_legacy_adapter( $import ) {
-		require_once plugin_dir_path( ELEMENTOR_SETTINGS_UPDATER_FILE ) . 'includes/compat/legacy-adapter.php';
+		require_once plugin_dir_path( ELEMENTOR_SETTINGS_UPDATER_FILE ) . 'includes/Compat/legacy-adapter.php';
 
 		$manifest = $import->get_manifest();
 		if ( Legacy_Adapter::is_compatibility_needed( $manifest ) ) {
