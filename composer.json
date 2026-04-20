@@ -1,5 +1,5 @@
 {
-  "name": "mralaminahamed/elementor-settings-updater",
+  "name": "mralaminahamed/elementor-kit-importer",
   "description": "Import Elementor global settings from legacy v0.4 and Elementor v4 JSON formats.",
   "license": "GPL-2.0-or-later",
   "type": "wordpress-plugin",
@@ -28,9 +28,9 @@
       "rm -rf release",
       "mkdir -p release",
       "composer install --no-dev --optimize-autoloader",
-      "rsync -av --exclude-from=.distignore . release/elementor-settings-updater/",
-      "cd release && zip -r elementor-settings-updater.zip elementor-settings-updater/",
-      "rm -rf release/elementor-settings-updater/",
+      "rsync -av --exclude-from=.distignore . release/elementor-kit-importer/",
+      "cd release && zip -r elementor-kit-importer.zip elementor-kit-importer/",
+      "rm -rf release/elementor-kit-importer/",
       "composer install"
     ]
   }

@@ -1,4 +1,4 @@
-=== Elementor Site Settings JSON Updater ===
+=== Elementor Kit Importer ===
 Contributors: mralaminahamed
 Tags: elementor, settings, import, global styles, kit
 Requires at least: 5.9
@@ -33,7 +33,7 @@ Upload a `global.json` (legacy Elementor v0.4 format) or `site-settings.json` (E
 
 1. Upload the plugin folder to `/wp-content/plugins/`.
 2. Activate the plugin via the Plugins menu in WordPress.
-3. Go to **Elementor → Global Settings Updater**.
+3. Go to **Elementor → Kit Importer**.
 4. Select your JSON file from the Media Library and click **Apply & Import Settings**.
 
 == Frequently Asked Questions ==

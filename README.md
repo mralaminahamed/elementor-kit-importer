@@ -1,4 +1,4 @@
-# Elementor Site Settings JSON Updater
+# Elementor Kit Importer
 
 Import Elementor global settings from **legacy v0.4** (`global.json`) and **Elementor v4** (`site-settings.json`) formats into your active Elementor kit.
 
@@ -23,14 +23,14 @@ Import Elementor global settings from **legacy v0.4** (`global.json`) and **Elem
 
 ```bash
 composer release
-# Upload release/elementor-settings-updater.zip via WP Admin → Plugins → Add New
+# Upload release/elementor-kit-importer.zip via WP Admin → Plugins → Add New
 ```
 
 Or copy the plugin folder to `wp-content/plugins/` and activate.
 
 ## Usage
 
-1. Go to **Elementor → Global Settings Updater**
+1. Go to **Elementor → Kit Importer**
 2. Click **Select / Upload JSON File** and choose your export file
 3. Optionally check **Import experiments** (v4 only)
 4. Click **Apply & Import Settings**
@@ -44,14 +44,14 @@ composer install
 
 # Build release ZIP
 composer release
-# → release/elementor-settings-updater.zip
+# → release/elementor-kit-importer.zip
 ```
 
 ## File Structure
 
 ```
-elementor-settings-updater/
-├── elementor-settings-updater.php  # Main plugin file
+elementor-kit-importer/
+├── elementor-kit-importer.php  # Main plugin file
 ├── assets/
 │   └── updater.js                  # Media uploader JS
 ├── templates/
