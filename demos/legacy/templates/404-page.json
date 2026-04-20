@@ -1,0 +1,194 @@
+{
+    "version": "0.4",
+    "title": "404 Page",
+    "type": "section",
+    "metadata": {
+        "template_type": "single-404",
+        "include_in_zip": "1",
+        "elementor_pro_required": null,
+        "wp_page_template": "elementor_canvas"
+    },
+    "content": [
+        {
+            "id": "28851d5",
+            "settings": {
+                "flex_direction": "row",
+                "min_height": {
+                    "unit": "vh",
+                    "size": 100,
+                    "sizes": []
+                },
+                "min_height_tablet": {
+                    "unit": "vh",
+                    "size": "",
+                    "sizes": []
+                },
+                "min_height_mobile": {
+                    "unit": "vh",
+                    "size": "",
+                    "sizes": []
+                },
+                "background_background": "slideshow",
+                "background_slideshow_gallery": [
+                    {
+                        "id": 72,
+                        "url": "https:\/\/templates.studioniskala.com\/ballademy\/wp-content\/uploads\/sites\/7\/2025\/03\/boy-scoring-goal-6AZQVSY.jpeg"
+                    },
+                    {
+                        "id": 89,
+                        "url": "https:\/\/templates.studioniskala.com\/ballademy\/wp-content\/uploads\/sites\/7\/2025\/03\/stretching-at-practice-5XSUZPC.jpeg"
+                    },
+                    {
+                        "id": 69,
+                        "url": "https:\/\/templates.studioniskala.com\/ballademy\/wp-content\/uploads\/sites\/7\/2025\/03\/ball-at-football-practice-YKZCXAW.jpeg"
+                    },
+                    {
+                        "id": 74,
+                        "url": "https:\/\/templates.studioniskala.com\/ballademy\/wp-content\/uploads\/sites\/7\/2025\/03\/cheering-holding-ball-8N96XBD.jpeg"
+                    },
+                    {
+                        "id": 93,
+                        "url": "https:\/\/templates.studioniskala.com\/ballademy\/wp-content\/uploads\/sites\/7\/2025\/03\/training-junior-team-3YTK8DU.jpeg"
+                    },
+                    {
+                        "id": 92,
+                        "url": "https:\/\/templates.studioniskala.com\/ballademy\/wp-content\/uploads\/sites\/7\/2025\/03\/team-practice-4W73WCB.jpeg"
+                    },
+                    {
+                        "id": 85,
+                        "url": "https:\/\/templates.studioniskala.com\/ballademy\/wp-content\/uploads\/sites\/7\/2025\/03\/practice-in-stadium-MF582H6.jpeg"
+                    },
+                    {
+                        "id": 82,
+                        "url": "https:\/\/templates.studioniskala.com\/ballademy\/wp-content\/uploads\/sites\/7\/2025\/03\/junior-football-team-LW4H9V6.jpeg"
+                    }
+                ],
+                "background_slideshow_background_size": "cover",
+                "background_slideshow_background_position": "center center",
+                "background_slideshow_lazyload": "yes",
+                "background_slideshow_ken_burns": "yes",
+                "background_overlay_background": "gradient",
+                "background_overlay_opacity": {
+                    "unit": "px",
+                    "size": 1,
+                    "sizes": []
+                },
+                "__globals__": {
+                    "background_overlay_color": "globals\/colors?id=5577a1a",
+                    "background_overlay_color_b": "globals\/colors?id=6e54641"
+                },
+                "background_slideshow_ken_burns_zoom_direction": "out",
+                "background_slideshow_slide_duration": 8000,
+                "margin": {
+                    "unit": "px",
+                    "top": "0",
+                    "right": "0",
+                    "bottom": "0",
+                    "left": "0",
+                    "isLinked": false
+                }
+            },
+            "elements": [
+                {
+                    "id": "59ea7f1b",
+                    "settings": {
+                        "content_width": "full",
+                        "padding": {
+                            "unit": "px",
+                            "top": "0",
+                            "right": "0",
+                            "bottom": "72",
+                            "left": "0",
+                            "isLinked": false
+                        },
+                        "flex_justify_content": "flex-end",
+                        "flex_direction": "column",
+                        "flex_align_items": "flex-start",
+                        "flex_wrap": "wrap",
+                        "flex_direction_tablet": "column",
+                        "margin_tablet": {
+                            "unit": "px",
+                            "top": "72",
+                            "right": "0",
+                            "bottom": "0",
+                            "left": "0",
+                            "isLinked": false
+                        }
+                    },
+                    "elements": [
+                        {
+                            "id": "2da99deb",
+                            "settings": {
+                                "main_heading": "404 Page not Found",
+                                "__globals__": {
+                                    "typography_title_typography": "globals\/typography?id=primary",
+                                    "title_color": "globals\/colors?id=primary"
+                                },
+                                "_animation": "bounceInDown"
+                            },
+                            "elements": [],
+                            "isInner": false,
+                            "widgetType": "gum_heading",
+                            "elType": "widget"
+                        },
+                        {
+                            "id": "5f3e5520",
+                            "settings": {
+                                "align": "left",
+                                "_element_width": "initial",
+                                "_element_custom_width": {
+                                    "unit": "%",
+                                    "size": 46,
+                                    "sizes": []
+                                },
+                                "__globals__": {
+                                    "text_color": "globals\/colors?id=text",
+                                    "typography_typography": "globals\/typography?id=text"
+                                },
+                                "_animation": "fadeInUp",
+                                "_animation_delay": 300
+                            },
+                            "elements": [],
+                            "isInner": false,
+                            "widgetType": "text-editor",
+                            "elType": "widget"
+                        },
+                        {
+                            "id": "3dd88a2b",
+                            "settings": {
+                                "text": "Back to Home",
+                                "selected_icon": {
+                                    "value": "fas fa-home",
+                                    "library": "fa-solid"
+                                },
+                                "icon_align": "row-reverse",
+                                "icon_indent": {
+                                    "unit": "px",
+                                    "size": 12,
+                                    "sizes": []
+                                },
+                                "_animation": "slideInUp",
+                                "_animation_delay": 300
+                            },
+                            "elements": [],
+                            "isInner": false,
+                            "widgetType": "button",
+                            "elType": "widget"
+                        }
+                    ],
+                    "isInner": true,
+                    "elType": "container"
+                }
+            ],
+            "isInner": false,
+            "elType": "container"
+        },
+        {
+            "id": "2664f8bb",
+            "settings": [],
+            "elements": [],
+            "isInner": false,
+            "elType": "container"
+        }
+    ]
+}

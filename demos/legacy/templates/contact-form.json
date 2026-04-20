@@ -1,0 +1,12 @@
+{
+    "version": "0.4",
+    "title": "Contact Form",
+    "type": "section",
+    "metadata": {
+        "template_type": "section-contact",
+        "include_in_zip": "1",
+        "elementor_pro_required": null,
+        "wp_page_template": "default"
+    },
+    "content": []
+}

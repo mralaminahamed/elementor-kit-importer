@@ -3,15 +3,9 @@
 
   var frame;
 
-  console.log("ff");
-
   $(document).ready(function () {
-    console.log("loaded");
-
     $("#upload_json_btn").on("click", function (e) {
       e.preventDefault();
-
-      console.log("test");
 
       // Reuse existing frame — avoids duplicate modal instances on repeated clicks.
       if (frame) {

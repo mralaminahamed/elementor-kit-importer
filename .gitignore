@@ -36,3 +36,4 @@ composer.lock
 # Misc
 *.local
 *.zip
+/.claude/worktrees/
