@@ -4,7 +4,7 @@
  * Verifies every importer conforms to the interface contract + factory wiring.
  *
  * Contract:
- *   - implements Elementor_Settings_Updater_Importer
+ *   - implements Elementor_Kit_Importer_Importer
  *   - public static detect(array): bool
  *   - public import(array, bool): array
  *   - constructor takes Kit_Manager dependency
@@ -32,13 +32,13 @@ function ok( string $name, bool $cond, string $detail, array &$totals ): void {
 }
 
 $importers = [
-	Elementor_Settings_Updater_Legacy_Importer::class,
-	Elementor_Settings_Updater_V4_Importer::class,
+	Elementor_Kit_Importer_Legacy_Importer::class,
+	Elementor_Kit_Importer_V4_Importer::class,
 ];
 
 echo "\n=== Interface contract ===\n";
 
-$iface = 'Elementor_Settings_Updater_Importer';
+$iface = 'Elementor_Kit_Importer_Importer';
 ok( 'interface exists', interface_exists( $iface ), $iface, $totals );
 
 $iface_ref = new ReflectionClass( $iface );
@@ -65,7 +65,7 @@ ok( 'import signature (array, bool)', $sig_ok, 'params: ' . count( $import_param
 
 echo "\n=== Per-importer class audit ===\n";
 
-$kit = new Elementor_Settings_Updater_Kit_Manager();
+$kit = new Elementor_Kit_Importer_Kit_Manager();
 
 foreach ( $importers as $class ) {
 	echo "\n--- {$class} ---\n";
@@ -84,7 +84,7 @@ foreach ( $importers as $class ) {
 		ok( 'has constructor', false, 'no constructor defined', $totals );
 	} else {
 		$params = $ctor->getParameters();
-		$dep_ok = count( $params ) === 1 && (string) $params[0]->getType() === 'Elementor_Settings_Updater_Kit_Manager';
+		$dep_ok = count( $params ) === 1 && (string) $params[0]->getType() === 'Elementor_Kit_Importer_Kit_Manager';
 		ok( 'constructor takes Kit_Manager', $dep_ok, 'params: ' . count( $params ), $totals );
 	}
 
@@ -114,7 +114,7 @@ foreach ( $importers as $class ) {
 
 echo "\n=== Factory wiring ===\n";
 
-$factory = new Elementor_Settings_Updater_Import_Factory( $kit );
+$factory = new Elementor_Kit_Importer_Import_Factory( $kit );
 $factory_ref = new ReflectionClass( $factory );
 
 ok( 'factory has get_importer', $factory_ref->hasMethod( 'get_importer' ), '', $totals );
@@ -125,10 +125,10 @@ ok( 'get_importer takes array', count( $gi_params ) === 1 && (string) $gi_params
 
 // dispatch table
 $cases = [
-	'legacy v0.4 marker'          => [ [ 'version' => '0.4', 'page_settings' => [] ], Elementor_Settings_Updater_Legacy_Importer::class ],
-	'legacy via page_settings'    => [ [ 'page_settings' => [] ], Elementor_Settings_Updater_Legacy_Importer::class ],
-	'v4 via settings key'         => [ [ 'settings' => [ 'x' => 1 ] ], Elementor_Settings_Updater_V4_Importer::class ],
-	'ambiguous → legacy priority' => [ [ 'settings' => [ 'x' => 1 ], 'page_settings' => [] ], Elementor_Settings_Updater_Legacy_Importer::class ],
+	'legacy v0.4 marker'          => [ [ 'version' => '0.4', 'page_settings' => [] ], Elementor_Kit_Importer_Legacy_Importer::class ],
+	'legacy via page_settings'    => [ [ 'page_settings' => [] ], Elementor_Kit_Importer_Legacy_Importer::class ],
+	'v4 via settings key'         => [ [ 'settings' => [ 'x' => 1 ] ], Elementor_Kit_Importer_V4_Importer::class ],
+	'ambiguous → legacy priority' => [ [ 'settings' => [ 'x' => 1 ], 'page_settings' => [] ], Elementor_Kit_Importer_Legacy_Importer::class ],
 	'empty object → null'         => [ [], null ],
 	'unknown shape → null'        => [ [ 'foo' => 'bar' ], null ],
 	'v4 manifest → null'          => [ [ 'name' => 'x', 'title' => 'y', 'version' => '1.0', 'elementor_version' => '3.27' ], null ],

@@ -4,7 +4,7 @@
  */
 
 class Test_Legacy_Importer {
-	private $importer_class = 'Elementor_Settings_Updater_Legacy_Importer';
+	private $importer_class = 'Elementor_Kit_Importer_Legacy_Importer';
 	private $legacy_file;
 	private $template_file;
 

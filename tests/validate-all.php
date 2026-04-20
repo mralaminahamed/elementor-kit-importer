@@ -16,7 +16,7 @@ require $root . '/includes/Importers/class-legacy-importer.php';
 require $root . '/includes/Importers/class-v4-importer.php';
 require $root . '/includes/Importers/class-import-factory.php';
 
-class Stub_Kit_Manager extends Elementor_Settings_Updater_Kit_Manager {
+class Stub_Kit_Manager extends Elementor_Kit_Importer_Kit_Manager {
 	public $captured   = [];
 	public $call_count = 0;
 
@@ -62,12 +62,12 @@ function check( string $name, $expected_class, string $expected_status, array $d
 $legacy_dir = $root . '/demos/legacy';
 $v4_dir     = $root . '/demos/v4';
 $kit        = new Stub_Kit_Manager();
-$factory    = new Elementor_Settings_Updater_Import_Factory( $kit );
+$factory    = new Elementor_Kit_Importer_Import_Factory( $kit );
 
 // ────── Legacy global styles ──────
 echo "\n=== Legacy: site-kit-settings/global.json (expect accept) ===\n";
 $data = json_decode( file_get_contents( $legacy_dir . '/site-kit-settings/global.json' ), true );
-check( 'global.json', Elementor_Settings_Updater_Legacy_Importer::class, 'success', $data, $factory, $totals, [
+check( 'global.json', Elementor_Kit_Importer_Legacy_Importer::class, 'success', $data, $factory, $totals, [
 	'check_details' => function ( $result, &$totals ) {
 		$d = $result['details'] ?? [];
 		$ok = ( $d['System colors'] ?? 0 ) === 4
@@ -91,7 +91,7 @@ $pre_count      = $kit->call_count;
 foreach ( $template_files as $path ) {
 	$name = basename( $path );
 	$data = json_decode( file_get_contents( $path ), true );
-	check( $name, Elementor_Settings_Updater_Legacy_Importer::class, 'error', $data, $factory, $totals );
+	check( $name, Elementor_Kit_Importer_Legacy_Importer::class, 'error', $data, $factory, $totals );
 }
 
 if ( $kit->call_count !== $pre_count ) {
@@ -105,7 +105,7 @@ if ( $kit->call_count !== $pre_count ) {
 // ────── V4 site-settings ──────
 echo "\n=== V4: site-kit-settings/site-settings.json (expect accept) ===\n";
 $data = json_decode( file_get_contents( $v4_dir . '/site-kit-settings/site-settings.json' ), true );
-check( 'site-settings.json', Elementor_Settings_Updater_V4_Importer::class, 'success', $data, $factory, $totals, [
+check( 'site-settings.json', Elementor_Kit_Importer_V4_Importer::class, 'success', $data, $factory, $totals, [
 	'experiments'   => false,
 	'check_details' => function ( $result, &$totals ) {
 		$d = $result['details'] ?? [];
@@ -131,10 +131,10 @@ check( 'manifest.json', null, '', $data, $factory, $totals );
 echo "\n=== Edge cases ===\n";
 check( 'empty object {}', null, '', [], $factory, $totals );
 check( 'unknown format', null, '', [ 'foo' => 'bar' ], $factory, $totals );
-check( 'legacy w/o version but has page_settings', Elementor_Settings_Updater_Legacy_Importer::class, 'error', [
+check( 'legacy w/o version but has page_settings', Elementor_Kit_Importer_Legacy_Importer::class, 'error', [
 	'page_settings' => [],
 ], $factory, $totals );
-check( 'v4 with page_settings (ambiguous — legacy wins)', Elementor_Settings_Updater_Legacy_Importer::class, 'error', [
+check( 'v4 with page_settings (ambiguous — legacy wins)', Elementor_Kit_Importer_Legacy_Importer::class, 'error', [
 	'settings'      => [ 'foo' => 'bar' ],
 	'page_settings' => [],
 ], $factory, $totals );

@@ -19,7 +19,7 @@ require $root . '/includes/Importers/class-import-factory.php';
 /**
  * Test double — captures apply_settings() calls, never touches Elementor.
  */
-class Stub_Kit_Manager extends Elementor_Settings_Updater_Kit_Manager {
+class Stub_Kit_Manager extends Elementor_Kit_Importer_Kit_Manager {
 	public $captured;
 	public $call_count = 0;
 
@@ -32,7 +32,7 @@ class Stub_Kit_Manager extends Elementor_Settings_Updater_Kit_Manager {
 
 $legacy_dir = $root . '/demos/legacy';
 $kit        = new Stub_Kit_Manager();
-$factory    = new Elementor_Settings_Updater_Import_Factory( $kit );
+$factory    = new Elementor_Kit_Importer_Import_Factory( $kit );
 
 $totals = [ 'pass' => 0, 'fail' => 0 ];
 
@@ -56,7 +56,7 @@ $global_path = $legacy_dir . '/site-kit-settings/global.json';
 $data        = json_decode( file_get_contents( $global_path ), true );
 $importer    = $factory->get_importer( $data );
 
-if ( ! $importer instanceof Elementor_Settings_Updater_Legacy_Importer ) {
+if ( ! $importer instanceof Elementor_Kit_Importer_Legacy_Importer ) {
 	echo "  [FAIL] factory did not return Legacy_Importer (got " . ( $importer ? get_class( $importer ) : 'null' ) . ")\n";
 	$totals['fail']++;
 } else {
@@ -81,7 +81,7 @@ foreach ( $template_files as $path ) {
 	$data     = json_decode( file_get_contents( $path ), true );
 	$importer = $factory->get_importer( $data );
 
-	if ( ! $importer instanceof Elementor_Settings_Updater_Legacy_Importer ) {
+	if ( ! $importer instanceof Elementor_Kit_Importer_Legacy_Importer ) {
 		printf( "  [FAIL] %s — factory returned %s\n", $name, $importer ? get_class( $importer ) : 'null' );
 		$totals['fail']++;
 		continue;
