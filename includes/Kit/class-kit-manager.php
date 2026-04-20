@@ -2,7 +2,7 @@
 /**
  * Kit settings manager
  *
- * @package Elementor_Settings_Updater
+ * @package Elementor_Kit_Importer
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Manage Elementor kit settings and cache
  */
-class Elementor_Settings_Updater_Kit_Manager {
+class Elementor_Kit_Importer_Kit_Manager {
 	/**
 	 * Apply settings to active kit
 	 *

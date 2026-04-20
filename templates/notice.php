@@ -1,6 +1,6 @@
 <?php
 /**
- * Admin notice template for Elementor Site Settings Updater.
+ * Admin notice template for Elementor Kit Importer.
  *
  * @var string $class   CSS notice class — 'notice-success' or 'notice-error'.
  * @var string $message Human-readable result message.

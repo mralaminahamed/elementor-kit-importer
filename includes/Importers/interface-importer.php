@@ -2,7 +2,7 @@
 /**
  * Importer interface
  *
- * @package Elementor_Settings_Updater
+ * @package Elementor_Kit_Importer
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Importer contract
  */
-interface Elementor_Settings_Updater_Importer {
+interface Elementor_Kit_Importer_Importer {
 	/**
 	 * Check if format applies
 	 *

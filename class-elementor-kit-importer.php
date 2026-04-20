@@ -1,31 +1,31 @@
 <?php
 /**
- * Elementor Site Settings JSON Updater - Main Plugin Class
+ * Elementor Kit Importer - Main Plugin Class
  *
  * @since   2.0.0
  * @version 2.0.0
  * @author  Al Amin Ahamed
- * @package Elementor_Settings_Updater
+ * @package Elementor_Kit_Importer
  */
 
-use Elementor_Settings_Updater\Compat\Legacy_Adapter;
+use Elementor_Kit_Importer\Compat\Legacy_Adapter;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit();
 }
 
 // Load classes
-require_once ELEMENTOR_SETTINGS_UPDATER_PATH . 'includes/Kit/class-kit-manager.php';
-require_once ELEMENTOR_SETTINGS_UPDATER_PATH . 'includes/Importers/interface-importer.php';
-require_once ELEMENTOR_SETTINGS_UPDATER_PATH . 'includes/Importers/class-legacy-importer.php';
-require_once ELEMENTOR_SETTINGS_UPDATER_PATH . 'includes/Importers/class-v4-importer.php';
-require_once ELEMENTOR_SETTINGS_UPDATER_PATH . 'includes/Importers/class-import-factory.php';
+require_once ELEMENTOR_KIT_IMPORTER_PATH . 'includes/Kit/class-kit-manager.php';
+require_once ELEMENTOR_KIT_IMPORTER_PATH . 'includes/Importers/interface-importer.php';
+require_once ELEMENTOR_KIT_IMPORTER_PATH . 'includes/Importers/class-legacy-importer.php';
+require_once ELEMENTOR_KIT_IMPORTER_PATH . 'includes/Importers/class-v4-importer.php';
+require_once ELEMENTOR_KIT_IMPORTER_PATH . 'includes/Importers/class-import-factory.php';
 
 /**
  * Main plugin class
  */
-class Elementor_Site_Settings_Updater {
-	const TRANSIENT_KEY = 'elementor_settings_updater_result';
+class Elementor_Kit_Importer {
+	const TRANSIENT_KEY = 'elementor_kit_importer_result';
 
 	/**
 	 * Singleton instance
@@ -72,10 +72,10 @@ class Elementor_Site_Settings_Updater {
 	public function add_admin_page() {
 		add_submenu_page(
 			'elementor',
-			'Elementor Global Settings Updater',
-			'Global Settings Updater',
+			'Elementor Kit Importer',
+			'Kit Importer',
 			'manage_options',
-			'elementor-global-settings-updater',
+			'elementor-kit-importer',
 			[ $this, 'render_page' ]
 		);
 	}
@@ -84,27 +84,27 @@ class Elementor_Site_Settings_Updater {
 	 * Enqueue admin scripts and styles
 	 */
 	public function enqueue_scripts( $hook ) {
-		if ( $hook !== 'admin_page_elementor-global-settings-updater' ) {
+		if ( $hook !== 'admin_page_elementor-kit-importer' ) {
 			return;
 		}
 
 		wp_enqueue_media();
 
 		wp_enqueue_script(
-			'elementor-settings-updater',
-			plugin_dir_url( ELEMENTOR_SETTINGS_UPDATER_FILE ) . 'assets/updater.js',
+			'elementor-kit-importer',
+			plugin_dir_url( ELEMENTOR_KIT_IMPORTER_FILE ) . 'assets/updater.js',
 			[ 'jquery' ],
-			ELEMENTOR_SETTINGS_UPDATER_VERSION,
+			ELEMENTOR_KIT_IMPORTER_VERSION,
 			true
 		);
 
 		wp_localize_script(
-			'elementor-settings-updater',
+			'elementor-kit-importer',
 			'elementorSettingsUpdater',
 			[
-				'title'    => __( 'Select global.json or site-settings.json', 'elementor-settings-updater' ),
-				'button'   => __( 'Use this file', 'elementor-settings-updater' ),
-				'selected' => __( 'Selected: ', 'elementor-settings-updater' ),
+				'title'    => __( 'Select global.json or site-settings.json', 'elementor-kit-importer' ),
+				'button'   => __( 'Use this file', 'elementor-kit-importer' ),
+				'selected' => __( 'Selected: ', 'elementor-kit-importer' ),
 			]
 		);
 	}
@@ -113,14 +113,14 @@ class Elementor_Site_Settings_Updater {
 	 * Process form submission
 	 */
 	public function process_form() {
-		if ( ! isset( $_POST['elementor_settings_updater_submit'] ) ) {
+		if ( ! isset( $_POST['elementor_kit_importer_submit'] ) ) {
 			return;
 		}
 
 		check_admin_referer( 'elementor_settings_update_nonce' );
 
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die( esc_html__( 'Insufficient permissions.', 'elementor-settings-updater' ) );
+			wp_die( esc_html__( 'Insufficient permissions.', 'elementor-kit-importer' ) );
 		}
 
 		$attachment_id      = intval( $_POST['json_attachment_id'] ?? 0 );
@@ -134,7 +134,7 @@ class Elementor_Site_Settings_Updater {
 			60
 		);
 
-		wp_safe_redirect( admin_url( 'admin.php?page=elementor-global-settings-updater' ) );
+		wp_safe_redirect( admin_url( 'admin.php?page=elementor-kit-importer' ) );
 		exit();
 	}
 
@@ -176,8 +176,8 @@ class Elementor_Site_Settings_Updater {
 		}
 
 		// Use factory to get appropriate importer
-		$kit_manager = new Elementor_Settings_Updater_Kit_Manager();
-		$factory = new Elementor_Settings_Updater_Import_Factory( $kit_manager );
+		$kit_manager = new Elementor_Kit_Importer_Kit_Manager();
+		$factory = new Elementor_Kit_Importer_Import_Factory( $kit_manager );
 		$importer = $factory->get_importer( $data );
 
 		if ( ! $importer ) {
@@ -194,7 +194,7 @@ class Elementor_Site_Settings_Updater {
 	 * Register legacy compatibility adapter for Elementor imports
 	 */
 	public function register_legacy_adapter( $import ) {
-		require_once plugin_dir_path( ELEMENTOR_SETTINGS_UPDATER_FILE ) . 'includes/Compat/legacy-adapter.php';
+		require_once plugin_dir_path( ELEMENTOR_KIT_IMPORTER_FILE ) . 'includes/Compat/legacy-adapter.php';
 
 		$manifest = $import->get_manifest();
 		if ( Legacy_Adapter::is_compatibility_needed( $manifest ) ) {
@@ -219,7 +219,7 @@ class Elementor_Site_Settings_Updater {
 	 * Load template file with scoped variables
 	 */
 	private function load_template( string $name, array $vars = [] ): void {
-		$path = plugin_dir_path( ELEMENTOR_SETTINGS_UPDATER_FILE ) . "templates/{$name}.php";
+		$path = plugin_dir_path( ELEMENTOR_KIT_IMPORTER_FILE ) . "templates/{$name}.php";
 
 		if ( ! file_exists( $path ) ) {
 			return;
@@ -237,7 +237,7 @@ class Elementor_Site_Settings_Updater {
 	 */
 	public function show_admin_notice() {
 		$screen = get_current_screen();
-		if ( ! $screen || strpos( $screen->id, 'elementor-global-settings-updater' ) === false ) {
+		if ( ! $screen || strpos( $screen->id, 'elementor-kit-importer' ) === false ) {
 			return;
 		}
 

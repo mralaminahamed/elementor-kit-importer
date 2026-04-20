@@ -2,7 +2,7 @@
 /**
  * Legacy v0.4 importer
  *
- * @package Elementor_Settings_Updater
+ * @package Elementor_Kit_Importer
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -12,20 +12,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Import legacy v0.4 format
  */
-class Elementor_Settings_Updater_Legacy_Importer implements Elementor_Settings_Updater_Importer {
+class Elementor_Kit_Importer_Legacy_Importer implements Elementor_Kit_Importer_Importer {
 	/**
 	 * Kit manager instance
 	 *
-	 * @var Elementor_Settings_Updater_Kit_Manager
+	 * @var Elementor_Kit_Importer_Kit_Manager
 	 */
 	private $kit_manager;
 
 	/**
 	 * Constructor
 	 *
-	 * @param Elementor_Settings_Updater_Kit_Manager $kit_manager Kit manager.
+	 * @param Elementor_Kit_Importer_Kit_Manager $kit_manager Kit manager.
 	 */
-	public function __construct( Elementor_Settings_Updater_Kit_Manager $kit_manager ) {
+	public function __construct( Elementor_Kit_Importer_Kit_Manager $kit_manager ) {
 		$this->kit_manager = $kit_manager;
 	}
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Elementor_Settings_Updater\Compat;
+namespace Elementor_Kit_Importer\Compat;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit();
