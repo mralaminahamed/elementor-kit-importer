@@ -1,0 +1,20 @@
+{
+  "name": "@mralaminahamed/elementor-kit-importer",
+  "version": "2.0.1",
+  "description": "Import Elementor global settings from legacy v0.4 and Elementor v4 JSON formats.",
+  "private": true,
+  "license": "GPL-2.0-or-later",
+  "author": "Al Amin Ahamed",
+  "scripts": {
+    "build": "wp-scripts build",
+    "start": "wp-scripts start",
+    "lint:js": "wp-scripts lint-js src",
+    "test:js": "wp-scripts test-unit-js",
+    "test:js:watch": "wp-scripts test-unit-js --watch"
+  },
+  "devDependencies": {
+    "@wordpress/jest-preset-default": "^12.47.0",
+    "@wordpress/scripts": "^32.3.0"
+  },
+  "packageManager": "yarn@4.15.0"
+}

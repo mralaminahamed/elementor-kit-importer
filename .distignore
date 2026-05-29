@@ -1,7 +1,45 @@
+# Dotfiles / IDE artefacts
 .*
-demos
+.git*
+.idea
+.vscode
+.DS_Store
+.distignore
+.remember
+.phpunit.result.cache
+.claude
+
+# Build output / release staging
 release
-vendor
+
+# Test suites
+tests
+
+# Documentation (readme.txt ships; Markdown docs do not)
+docs
 *.md
-*.json
-*.lock
+*.log
+
+# Demo data — not shipped in production builds
+demos
+
+# Node dependencies
+node_modules
+
+# Composer dev manifests (vendor/ ships after --no-dev install; manifests don't)
+composer.json
+composer.lock
+
+# Static analysis / code style
+phpcs.xml
+phpstan.neon
+phpunit*.xml
+
+# JS build sources (compiled output ships in build/)
+src
+
+# JS tooling
+jest.config.js
+package.json
+package-lock.json
+yarn.lock

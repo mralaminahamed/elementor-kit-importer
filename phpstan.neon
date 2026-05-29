@@ -1,0 +1,27 @@
+includes:
+    - phar://phpstan.phar/conf/bleedingEdge.neon
+
+parameters:
+  level: 5
+  paths:
+    - includes/
+    - elementor-kit-importer.php
+  excludePaths:
+    - vendor/ (?)
+    - node_modules/ (?)
+    - assets/ (?)
+    - build/ (?)
+    - src/ (?)
+    - languages/ (?)
+    - tests/ (?)
+  scanFiles:
+    - %rootDir%/../../php-stubs/wordpress-stubs/wordpress-stubs.php
+    - tests/phpstan/stubs/elementor/elementor.stub
+  bootstrapFiles:
+    - tests/phpstan/bootstrap.php
+  treatPhpDocTypesAsCertain: false
+  ignoreErrors:
+    # The adapter stores the injected Elementor import instance as contract
+    # context; this minimal legacy shim does not need to read it back.
+    - message: '#Property Elementor_Kit_Importer\\Compat\\Legacy_Adapter::\$import is never read, only written\.#'
+      path: includes/Compat/class-legacy-adapter.php

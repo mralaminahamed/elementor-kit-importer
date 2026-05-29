@@ -1,20 +1,25 @@
 <?php
 /**
- * Importer interface
+ * Importer interface.
  *
  * @package Elementor_Kit_Importer
  */
 
+declare( strict_types=1 );
+
+namespace Elementor_Kit_Importer\Importers;
+
 if ( ! defined( 'ABSPATH' ) ) {
-	exit();
+	exit;
 }
 
 /**
- * Importer contract
+ * Importer contract.
  */
-interface Elementor_Kit_Importer_Importer {
+interface Importer {
+
 	/**
-	 * Check if format applies
+	 * Check if this importer applies to the given data.
 	 *
 	 * @param array $data Decoded JSON data.
 	 * @return bool
@@ -22,10 +27,10 @@ interface Elementor_Kit_Importer_Importer {
 	public static function detect( array $data ): bool;
 
 	/**
-	 * Import data
+	 * Import the data.
 	 *
-	 * @param array $data Decoded JSON data.
-	 * @param bool  $import_experiments Whether to import experiments.
+	 * @param array $data               Decoded JSON data.
+	 * @param bool  $import_experiments  Whether to import experiments.
 	 * @return array Result with status, message, details.
 	 */
 	public function import( array $data, bool $import_experiments ): array;

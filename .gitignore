@@ -1,39 +1,25 @@
 # Dependencies
-/vendor/
+node_modules/
+vendor/
 
-# Build outputs
-/release/
+# Yarn (Berry / v4) — keep release & config, ignore caches/state
+.yarn/*
+.pnp.*
 
-# Package managers
-composer.lock
+# Build output
+build/
+release/
 
-# Environment
-.env
-.env.*
-!.env.example
+# Lockfiles from other package managers (this project uses Yarn)
+package-lock.json
 
-# Logs
+# Tooling / IDE
+.idea/
+.vscode/
+.DS_Store
 *.log
-*-debug.log
-*-error.log
+.phpunit.result.cache
 
-# Editor / IDE
-/.vscode/
-!.vscode/extensions.json
-/.idea/
-*.suo
-*.sw?
-
-# macOS
-**/.DS_Store
-
-# AI coding tools
-/.claude/settings.local.json
-/.aider*
-/.trae/
-/.remember/
-
-# Misc
-*.local
-*.zip
-/.claude/worktrees/
+# Agent dirs
+.claude/
+.remember/

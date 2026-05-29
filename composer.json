@@ -3,20 +3,51 @@
   "description": "Import Elementor global settings from legacy v0.4 and Elementor v4 JSON formats.",
   "license": "GPL-2.0-or-later",
   "type": "wordpress-plugin",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "authors": [
     {
       "name": "Al Amin Ahamed",
       "email": "mrabir.ahamed@gmail.com",
       "homepage": "https://alaminahamed.com",
-      "role": "Author"
+      "role": "Developer"
     }
   ],
   "require": {
     "php": "^7.4",
     "ext-json": "*"
   },
+  "require-dev": {
+    "brain/monkey": "^2.6",
+    "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+    "mockery/mockery": "^1.6",
+    "php-stubs/wordpress-stubs": "^6.5",
+    "phpcompatibility/php-compatibility": "^10.0",
+    "phpstan/extension-installer": "^1.4",
+    "phpunit/phpunit": "^9.6",
+    "squizlabs/php_codesniffer": "^3.13",
+    "szepeviktor/phpstan-wordpress": "^2.0",
+    "wp-coding-standards/wpcs": "^3.2",
+    "wp-phpunit/wp-phpunit": "^6.5",
+    "yoast/phpunit-polyfills": "^1.1"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "classmap": [
+      "includes/"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Elementor_Kit_Importer\\Tests\\Unit\\": "tests/php/Unit/",
+      "Elementor_Kit_Importer\\Tests\\Integration\\": "tests/php/Integration/"
+    }
+  },
   "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "phpstan/extension-installer": true
+    },
     "optimize-autoloader": true,
     "platform": {
       "php": "7.4"
@@ -24,11 +55,20 @@
     "sort-packages": false
   },
   "scripts": {
+    "lint": "phpcs --standard=phpcs.xml",
+    "lint:fix": "phpcbf --standard=phpcs.xml",
+    "test": "phpunit --configuration phpunit.unit.xml",
+    "test:unit": "phpunit --configuration phpunit.unit.xml",
+    "test:integration": "phpunit --configuration phpunit.integration.xml",
+    "analyse": "phpstan analyse --memory-limit 1G",
+    "analyse-baseline": "phpstan analyse --generate-baseline --memory-limit 1G",
+    "i18n": "wp i18n make-pot . languages/elementor-kit-importer.pot --exclude=node_modules,vendor,tests,release,demos",
     "release": [
-      "rm -rf release",
+      "@putenv COMPOSER_PROCESS_TIMEOUT=600",
+      "rm -rf release vendor",
       "mkdir -p release",
       "composer install --no-dev --optimize-autoloader",
-      "rsync -av --exclude-from=.distignore . release/elementor-kit-importer/",
+      "rsync -av --delete --exclude-from=.distignore ./ release/elementor-kit-importer/",
       "cd release && zip -r elementor-kit-importer.zip elementor-kit-importer/",
       "rm -rf release/elementor-kit-importer/",
       "composer install"

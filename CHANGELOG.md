@@ -7,14 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.0.1] - 2026-05-30
 
+### Changed
+- Refactored all source classes into the `Elementor_Kit_Importer\{Core,Importers,Kit,Compat}` namespaces with Composer classmap autoloading (replaces the manual `require_once` chain and prefixed global classes)
+- `Core\Plugin` now uses an idempotent `run()` bootstrap and reads its admin script from the wp-scripts build manifest
+
+### Added
+- Development tooling parity with the rest of the kit: Composer (PHPUnit 9.6, Brain Monkey, Mockery, wp-phpunit), `phpcs.xml` (WPCS), `phpstan.neon` (level 5)
+- `@wordpress/scripts` (webpack) build pipeline: `src/` → `build/`, with the JSON media-picker rewritten as a testable module
+- PHPUnit unit suite (33 tests) + integration suite (4 tests) + Jest suite (6 tests)
+- `Requires Plugins: elementor`, `Requires PHP`, and `Requires at least` plugin headers
+
 ### Fixed
 - Strip non-portable WooCommerce page IDs (`woocommerce_*_page_id`) on v4 import — prevented broken cart/checkout/account links from source-site post IDs
 - Undefined-index notice in legacy importer when a template file lacks a `type` key
 - `Legacy_Adapter::is_compatibility_needed()` now accepts the `$meta` argument to match Elementor's `Base_Adapter` contract
-- Version string drift — plugin header now `2.0.0` to match readme and constant
-
-### Added
-- `Requires Plugins: elementor`, `Requires PHP`, and `Requires at least` plugin headers
+- Version string drift — plugin header now `2.0.1` to match readme and constant
 
 ## [2.0.0] - 2026-04-17
 

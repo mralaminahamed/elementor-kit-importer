@@ -39,28 +39,65 @@ Or copy the plugin folder to `wp-content/plugins/` and activate.
 ## Development
 
 ```bash
-# Install dependencies
+# PHP dependencies (PHPUnit, Brain Monkey, Mockery, PHPCS, PHPStan)
 composer install
 
+# JS dependencies + build (wp-scripts / webpack)
+yarn install
+yarn build          # src/ → build/
+
+# Tests
+composer test:unit          # PHPUnit unit suite (Brain Monkey, no DB)
+composer test:integration   # PHPUnit integration suite (needs a MySQL test DB)
+yarn test:js                # Jest (jsdom)
+
+# Static analysis & coding standards
+composer lint               # PHPCS (WordPress standard)
+composer analyse            # PHPStan level 5
+
 # Build release ZIP
-composer release
-# → release/elementor-kit-importer.zip
+composer release            # → release/elementor-kit-importer.zip
 ```
+
+Integration tests use `wp-phpunit`. Point them at a throwaway database via
+`WP_DB_NAME` / `WP_DB_USER` / `WP_DB_PASS` / `WP_DB_HOST` (defaults:
+`elementor_kit_importer_tests`, `root`, `password`, `localhost`).
+
+## Architecture
+
+All classes live under the `Elementor_Kit_Importer` namespace, autoloaded by
+Composer (classmap):
+
+| Namespace | Responsibility |
+|-----------|----------------|
+| `Core\Plugin` | Bootstrap, admin page, form handling |
+| `Importers\Import_Factory` | Format detection → importer selection |
+| `Importers\Legacy_Importer` / `V4_Importer` | Per-format import logic |
+| `Kit\Kit_Manager` | Apply settings to the active Elementor kit |
+| `Compat\Legacy_Adapter` | Legacy Elementor import-export shim |
 
 ## File Structure
 
 ```
 elementor-kit-importer/
-├── elementor-kit-importer.php  # Main plugin file
-├── assets/
-│   └── updater.js                  # Media uploader JS
-├── templates/
-│   ├── updater.php                 # Admin page template
-│   └── notice.php                  # Admin notice template
-├── demos/
-│   ├── legacy/global.json          # Legacy v0.4 sample
-│   └── v4/site-settings.json       # Elementor v4 sample
-└── composer.json
+├── elementor-kit-importer.php      # Main plugin file (constants + bootstrap)
+├── includes/
+│   ├── Core/class-plugin.php           # Core\Plugin
+│   ├── Importers/                      # interface + factory + importers
+│   ├── Kit/class-kit-manager.php       # Kit\Kit_Manager
+│   └── Compat/class-legacy-adapter.php # Compat\Legacy_Adapter
+├── src/                            # JS source (wp-scripts entry)
+│   ├── index.js
+│   └── media-picker.js
+├── build/                          # Compiled JS (generated)
+├── templates/                      # Admin page + notice templates
+├── tests/
+│   ├── php/Unit/                       # PHPUnit unit suite
+│   ├── php/Integration/                # PHPUnit integration suite
+│   └── js/                             # Jest suite
+├── demos/                          # Sample legacy + v4 export files
+├── composer.json
+└── package.json
 ```
 
 ## Author
