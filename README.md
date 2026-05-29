@@ -1,6 +1,6 @@
 # Elementor Kit Importer
 
-**Version 2.0.1** · Requires Elementor · PHP 7.4+ · WordPress 5.9+
+**Version 2.0.2** · Requires Elementor · PHP 7.4+ · WordPress 5.9+
 
 Import Elementor global settings from **legacy v0.4** (`global.json`) and **Elementor v4** (`site-settings.json`) formats into your active Elementor kit.
 

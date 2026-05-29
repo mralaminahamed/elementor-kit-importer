@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'ELEMENTOR_KIT_IMPORTER_VERSION' ) ) {
-	define( 'ELEMENTOR_KIT_IMPORTER_VERSION', '2.0.1' );
+	define( 'ELEMENTOR_KIT_IMPORTER_VERSION', '2.0.2' );
 }
 
 if ( ! defined( 'ELEMENTOR_KIT_IMPORTER_FILE' ) ) {

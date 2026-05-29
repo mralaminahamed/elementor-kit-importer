@@ -4,7 +4,7 @@ Tags: elementor, settings, import, global styles, kit
 Requires at least: 5.9
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 2.0.1
+Stable tag: 2.0.2
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -51,6 +51,9 @@ Yes. The imported settings are applied directly to the active Elementor kit, rep
 Elementor v4 exports include feature flag states (e.g. Atomic Widgets, Global Classes). Checking this option applies those states to your current installation. Legacy imports ignore this option.
 
 == Changelog ==
+
+= 2.0.2 =
+* Unreleased — in development.
 
 = 2.0.1 =
 * Fixed: strip non-portable WooCommerce page IDs (`woocommerce_*_page_id`) on v4 import — prevents broken cart/checkout/account links from source-site post IDs

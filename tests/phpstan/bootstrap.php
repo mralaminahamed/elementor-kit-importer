@@ -8,7 +8,7 @@
 
 declare( strict_types=1 );
 
-define( 'ELEMENTOR_KIT_IMPORTER_VERSION', '2.0.1' );
+define( 'ELEMENTOR_KIT_IMPORTER_VERSION', '2.0.2' );
 define( 'ELEMENTOR_KIT_IMPORTER_FILE', dirname( __DIR__, 2 ) . '/elementor-kit-importer.php' );
 define( 'ELEMENTOR_KIT_IMPORTER_PATH', dirname( __DIR__, 2 ) . '/' );
 define( 'ELEMENTOR_KIT_IMPORTER_URL', 'http://localhost/wp-content/plugins/elementor-kit-importer/' );

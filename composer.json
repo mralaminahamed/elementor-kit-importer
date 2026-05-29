@@ -3,7 +3,7 @@
   "description": "Import Elementor global settings from legacy v0.4 and Elementor v4 JSON formats.",
   "license": "GPL-2.0-or-later",
   "type": "wordpress-plugin",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "authors": [
     {
       "name": "Al Amin Ahamed",
