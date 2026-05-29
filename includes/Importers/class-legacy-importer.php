@@ -60,7 +60,7 @@ class Elementor_Kit_Importer_Legacy_Importer implements Elementor_Kit_Importer_I
 		if ( ! $is_global_styles && $has_template_elements ) {
 			return [
 				'status'  => 'error',
-				'message' => 'Template file detected (' . $data['type'] . ': ' . ( $data['title'] ?? 'Unknown' ) . '). Import via Elementor → Tools → Import Kit.',
+				'message' => 'Template file detected (' . ( $data['type'] ?? 'unknown' ) . ': ' . ( $data['title'] ?? 'Unknown' ) . '). Import via Elementor → Tools → Import Kit.',
 				'details' => [
 					'File type'      => ucfirst( $data['type'] ?? 'unknown' ),
 					'Template title' => $data['title'] ?? 'Untitled',

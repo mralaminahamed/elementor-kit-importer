@@ -13,8 +13,9 @@ class Legacy_Adapter {
 		$this->import = $import;
 	}
 
-	public static function is_compatibility_needed( array $manifest_data ): bool {
-		// Detect legacy v0.4 format: has 'version' = '0.4' OR old structure indicator
+	public static function is_compatibility_needed( array $manifest_data, array $meta = [] ): bool {
+		// Detect legacy v0.4 format: has 'version' = '0.4' OR old structure indicator.
+		// $meta is accepted to match Elementor's Base_Adapter contract (referrer, etc.); unused here.
 		return isset( $manifest_data['version'] ) && $manifest_data['version'] === '0.4';
 	}
 

@@ -2,17 +2,20 @@
 /**
  * Plugin Name:       Elementor Kit Importer
  * Description:       Import global.json (legacy v0.4) or site-settings.json (Elementor v4). Auto-detects format and applies colors, typography, and experiments.
- * Version:           2.0
+ * Version:           2.0.1
  * Author:            Al Amin Ahamed
  * Author URI:        https://alaminahamed.com
  * Text Domain:       elementor-kit-importer
+ * Requires at least: 5.9
+ * Requires PHP:      7.4
+ * Requires Plugins:  elementor
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit();
 }
 
-define( 'ELEMENTOR_KIT_IMPORTER_VERSION', '2.0' );
+define( 'ELEMENTOR_KIT_IMPORTER_VERSION', '2.0.1' );
 define( 'ELEMENTOR_KIT_IMPORTER_FILE', __FILE__ );
 define( 'ELEMENTOR_KIT_IMPORTER_URL', plugin_dir_url( __FILE__ ) );
 define( 'ELEMENTOR_KIT_IMPORTER_PATH', plugin_dir_path( __FILE__ ) );

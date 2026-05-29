@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.1] - 2026-05-30
+
+### Fixed
+- Strip non-portable WooCommerce page IDs (`woocommerce_*_page_id`) on v4 import — prevented broken cart/checkout/account links from source-site post IDs
+- Undefined-index notice in legacy importer when a template file lacks a `type` key
+- `Legacy_Adapter::is_compatibility_needed()` now accepts the `$meta` argument to match Elementor's `Base_Adapter` contract
+- Version string drift — plugin header now `2.0.0` to match readme and constant
+
+### Added
+- `Requires Plugins: elementor`, `Requires PHP`, and `Requires at least` plugin headers
+
 ## [2.0.0] - 2026-04-17
 
 ### Added

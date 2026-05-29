@@ -51,6 +51,14 @@ class Elementor_Kit_Importer_V4_Importer implements Elementor_Kit_Importer_Impor
 			unset( $settings[ $key ] );
 		}
 
+		// Strip non-portable WooCommerce page references. These hold source-site
+		// post IDs that will not exist on the target and would break cart/checkout/account links.
+		foreach ( array_keys( $settings ) as $key ) {
+			if ( strpos( $key, 'woocommerce_' ) === 0 && substr( $key, -8 ) === '_page_id' ) {
+				unset( $settings[ $key ] );
+			}
+		}
+
 		// Apply kit settings
 		if ( ! empty( $settings ) ) {
 			$result = $this->kit_manager->apply_settings( $settings );
