@@ -9,7 +9,6 @@ parameters:
   excludePaths:
     - vendor/ (?)
     - node_modules/ (?)
-    - assets/ (?)
     - build/ (?)
     - src/ (?)
     - languages/ (?)
