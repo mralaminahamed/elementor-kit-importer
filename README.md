@@ -1,5 +1,7 @@
 # Elementor Kit Importer
 
+**Version 2.0.1** · Requires Elementor · PHP 7.4+ · WordPress 5.9+
+
 Import Elementor global settings from **legacy v0.4** (`global.json`) and **Elementor v4** (`site-settings.json`) formats into your active Elementor kit.
 
 ## Features
@@ -99,6 +101,19 @@ elementor-kit-importer/
 ├── composer.json
 └── package.json
 ```
+
+## Changelog
+
+### 2.0.1
+
+- **Fixed:** strip non-portable WooCommerce page IDs (`woocommerce_*_page_id`) on v4 import
+- **Fixed:** PHP notice in the legacy importer when a template file lacks a `type` key
+- **Fixed:** `Legacy_Adapter::is_compatibility_needed()` matches Elementor's `Base_Adapter` contract
+- **Changed:** all classes namespaced under `Elementor_Kit_Importer\*` with Composer autoloading
+- **Changed:** admin script built with `@wordpress/scripts` (webpack)
+- **Added:** PHPUnit (unit + integration) + Jest suites, PHPCS, PHPStan; dependency headers
+
+Full history in [CHANGELOG.md](CHANGELOG.md).
 
 ## Author
 

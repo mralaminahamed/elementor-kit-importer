@@ -52,6 +52,16 @@ Elementor v4 exports include feature flag states (e.g. Atomic Widgets, Global Cl
 
 == Changelog ==
 
+= 2.0.1 =
+* Fixed: strip non-portable WooCommerce page IDs (`woocommerce_*_page_id`) on v4 import — prevents broken cart/checkout/account links from source-site post IDs
+* Fixed: PHP notice in the legacy importer when a template file lacks a `type` key
+* Fixed: `Legacy_Adapter::is_compatibility_needed()` accepts the `$meta` argument to match Elementor's `Base_Adapter` contract
+* Fixed: version string drift across plugin header, constant, and readme
+* Changed: all classes namespaced under `Elementor_Kit_Importer\{Core,Importers,Kit,Compat}` with Composer autoloading
+* Changed: admin script now built with `@wordpress/scripts` (webpack) and loaded from the build manifest
+* Added: `Requires Plugins: elementor`, `Requires PHP`, and `Requires at least` headers
+* Added: PHPUnit (unit + integration) and Jest test suites, PHPCS, and PHPStan tooling
+
 = 2.0.0 =
 * Added Elementor v4 `site-settings.json` format support
 * Added experiments / feature flags import (v4)
@@ -69,6 +79,9 @@ Elementor v4 exports include feature flag states (e.g. Atomic Widgets, Global Cl
 * Auto-detects official Elementor v0.4 global settings format
 
 == Upgrade Notice ==
+
+= 2.0.1 =
+Fixes broken WooCommerce page links on v4 import and namespaces the codebase. No database changes. Safe to upgrade.
 
 = 2.0.0 =
 Adds full Elementor v4 format support. No database changes. Safe to upgrade.
