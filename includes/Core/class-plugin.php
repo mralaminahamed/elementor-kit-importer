@@ -86,6 +86,7 @@ final class Plugin {
 		add_action( 'admin_init', array( $this, 'process_form' ) );
 		add_filter( 'upload_mimes', array( $this, 'allow_json_upload' ) );
 		add_action( 'elementor/import-export/import-kit', array( $this, 'register_legacy_adapter' ), 10, 1 );
+		add_filter( 'plugin_action_links_' . ELEMENTOR_KIT_IMPORTER_BASENAME, array( $this, 'add_plugin_action_links' ) );
 	}
 
 	/**
@@ -279,6 +280,24 @@ final class Plugin {
 		$property   = $reflection->getProperty( 'adapters' );
 		$property->setAccessible( true );
 		$property->setValue( $import, $adapters );
+	}
+
+	/**
+	 * Add Import Kit link to plugin action links.
+	 *
+	 * @param array $links Existing action links.
+	 * @return array
+	 */
+	public function add_plugin_action_links( array $links ): array {
+		$import_link = sprintf(
+			'<a href="%s">%s</a>',
+			esc_url( admin_url( 'admin.php?page=elementor-kit-importer' ) ),
+			esc_html__( 'Import Kit', 'elementor-kit-importer' )
+		);
+
+		array_unshift( $links, $import_link );
+
+		return $links;
 	}
 
 	/**
