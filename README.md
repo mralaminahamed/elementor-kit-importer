@@ -121,4 +121,4 @@ Full history in [CHANGELOG.md](CHANGELOG.md).
 
 ## License
 
-GPL-2.0-or-later — see [LICENSE.txt](LICENSE.txt)
+GPL-2.0-or-later — see [LICENSE.txt](LICENSE)
