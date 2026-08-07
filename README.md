@@ -1,124 +1,132 @@
-# Elementor Kit Importer
+<div align="center">
 
-**Version 2.0.2** · Requires Elementor · PHP 7.4+ · WordPress 5.9+
+# Elementor Kit Importer — Developer Guide
 
-Import Elementor global settings from **legacy v0.4** (`global.json`) and **Elementor v4** (`site-settings.json`) formats into your active Elementor kit.
+**Imports a kit's global settings whether the file came from Elementor v0.4 or v4, by detecting the format rather than asking you which one you have.**
+
+[![Version](https://img.shields.io/badge/version-2.0.2-2563eb.svg)](https://github.com/mralaminahamed/elementor-kit-importer)
+[![WordPress](https://img.shields.io/badge/WordPress-5.9%2B-21759b.svg?logo=wordpress&logoColor=white)](https://wordpress.org/)
+[![Elementor](https://img.shields.io/badge/Elementor-required-92003B.svg?logo=elementor&logoColor=white)](https://elementor.com/)
+[![PHP](https://img.shields.io/badge/PHP-7.4%2B-777BB4.svg?logo=php&logoColor=white)](https://php.net/)
+[![License: GPL-2.0-or-later](https://img.shields.io/badge/License-GPL--2.0--or--later-green.svg)](LICENSE)
+
+</div>
+
+## What it is
+
+Elementor changed the shape of a kit's settings file between v0.4 and v4.
+`global.json` became `site-settings.json`, and the settings moved from
+`page_settings` to `settings`. A kit exported from an older site therefore does
+not import into a newer one, and the person holding the file usually has no idea
+which generation it belongs to — the extension is `.json` either way.
+
+So this plugin does not ask. It reads the file, decides which format it is, and
+runs the importer for that format. Both importers implement the same interface,
+so the choosing is a factory returning one of two objects and nothing downstream
+knows the difference.
+
+There is a second, separate path: when Elementor's own import runs, the plugin
+registers an adapter on `elementor/import-export/import-kit` so a legacy kit
+imported *through Elementor's UI* is translated on the way through, rather than
+having to come through this plugin at all.
 
 ## Features
 
-- Auto-detects legacy v0.4 and Elementor v4 export formats
-- Imports system/custom colors and typography
-- Imports body, heading, link, button, container, and viewport settings
-- Imports Elementor experiments / feature flags (v4, opt-in)
-- Uses WordPress Media Library for file selection
-- Post-Redirect-Get pattern — no stale notice bug
-- Server-side MIME validation on every import
+- **Format auto-detection** — no dropdown, no guessing
+- Imports **colours, typography and experiments** from either generation
+- **Experiments are opt-in** per import, since turning experiments on is not something to do silently
+- An **adapter for Elementor's own importer**, so legacy kits work through the native flow too
+- JSON is temporarily allowed as an upload type through `upload_mimes`, which WordPress otherwise refuses
+- Hard dependency on Elementor via the `Requires Plugins` header — WordPress blocks activation without it
 
-## Supported Formats
+## Requirements
 
-| Format | File | Key |
-|--------|------|-----|
-| Legacy v0.4 | `global.json` | `page_settings` |
-| Elementor v4 | `site-settings.json` | `settings` + `experiments` |
+- WordPress 5.9+
+- Elementor
+- PHP 7.4+
 
 ## Installation
 
 ```bash
-composer release
-# Upload release/elementor-kit-importer.zip via WP Admin → Plugins → Add New
+git clone https://github.com/mralaminahamed/elementor-kit-importer.git
+cd elementor-kit-importer
+composer install
+yarn install && yarn build
 ```
-
-Or copy the plugin folder to `wp-content/plugins/` and activate.
-
-## Usage
-
-1. Go to **Elementor → Kit Importer**
-2. Click **Select / Upload JSON File** and choose your export file
-3. Optionally check **Import experiments** (v4 only)
-4. Click **Apply & Import Settings**
-5. Go to **Elementor → Tools → Regenerate CSS & Data**
 
 ## Development
 
 ```bash
-# PHP dependencies (PHPUnit, Brain Monkey, Mockery, PHPCS, PHPStan)
-composer install
+composer lint              # WordPress coding standards
+composer lint:fix          # auto-fix what it can
+composer analyse           # PHPStan
+composer analyse-baseline  # regenerate the baseline
+composer test              # both suites
+composer test:unit
+composer test:integration
+composer i18n              # regenerate the POT file
 
-# JS dependencies + build (wp-scripts / webpack)
-yarn install
-yarn build          # src/ → build/
-
-# Tests
-composer test:unit          # PHPUnit unit suite (Brain Monkey, no DB)
-composer test:integration   # PHPUnit integration suite (needs a MySQL test DB)
-yarn test:js                # Jest (jsdom)
-
-# Static analysis & coding standards
-composer lint               # PHPCS (WordPress standard)
-composer analyse            # PHPStan level 5
-
-# Build release ZIP
-composer release            # → release/elementor-kit-importer.zip
+yarn start                 # asset watch
+yarn build                 # production assets
+yarn test:js               # Jest
 ```
-
-Integration tests use `wp-phpunit`. Point them at a throwaway database via
-`WP_DB_NAME` / `WP_DB_USER` / `WP_DB_PASS` / `WP_DB_HOST` (defaults:
-`elementor_kit_importer_tests`, `root`, `password`, `localhost`).
 
 ## Architecture
 
-All classes live under the `Elementor_Kit_Importer` namespace, autoloaded by
-Composer (classmap):
-
-| Namespace | Responsibility |
-|-----------|----------------|
-| `Core\Plugin` | Bootstrap, admin page, form handling |
-| `Importers\Import_Factory` | Format detection → importer selection |
-| `Importers\Legacy_Importer` / `V4_Importer` | Per-format import logic |
-| `Kit\Kit_Manager` | Apply settings to the active Elementor kit |
-| `Compat\Legacy_Adapter` | Legacy Elementor import-export shim |
-
-## File Structure
-
 ```
-elementor-kit-importer/
-├── elementor-kit-importer.php      # Main plugin file (constants + bootstrap)
-├── includes/
-│   ├── Core/class-plugin.php           # Core\Plugin
-│   ├── Importers/                      # interface + factory + importers
-│   ├── Kit/class-kit-manager.php       # Kit\Kit_Manager
-│   └── Compat/class-legacy-adapter.php # Compat\Legacy_Adapter
-├── src/                            # JS source (wp-scripts entry)
-│   ├── index.js
-│   └── media-picker.js
-├── build/                          # Compiled JS (generated)
-├── templates/                      # Admin page + notice templates
-├── tests/
-│   ├── php/Unit/                       # PHPUnit unit suite
-│   ├── php/Integration/                # PHPUnit integration suite
-│   └── js/                             # Jest suite
-├── demos/                          # Sample legacy + v4 export files
-├── composer.json
-└── package.json
+elementor-kit-importer.php            entry point and constants
+includes/
+├── Core/class-plugin.php             singleton; the admin page, the form, the hooks
+├── Importers/
+│   ├── interface-importer.php        detect() and import() — the whole contract
+│   ├── class-import-factory.php      picks an importer from the decoded JSON
+│   ├── class-legacy-importer.php     v0.4 — global.json
+│   └── class-v4-importer.php         v4 — site-settings.json
+├── Kit/class-kit-manager.php         applies settings to the active kit, then clears Elementor's cache
+└── Compat/class-legacy-adapter.php   translates a legacy kit inside Elementor's own import
+templates/notice.php
 ```
 
-## Changelog
+### The contract is two methods
 
-### 2.0.1
+```php
+interface Importer {
+    public static function detect( array $data ): bool;
+    public function import( array $data, bool $import_experiments ): array;
+}
+```
 
-- **Fixed:** strip non-portable WooCommerce page IDs (`woocommerce_*_page_id`) on v4 import
-- **Fixed:** PHP notice in the legacy importer when a template file lacks a `type` key
-- **Fixed:** `Legacy_Adapter::is_compatibility_needed()` matches Elementor's `Base_Adapter` contract
-- **Changed:** all classes namespaced under `Elementor_Kit_Importer\*` with Composer autoloading
-- **Changed:** admin script built with `@wordpress/scripts` (webpack)
-- **Added:** PHPUnit (unit + integration) + Jest suites, PHPCS, PHPStan; dependency headers
+`detect()` is static because the factory has to ask before it has an instance —
+the question is about the data, not about the importer. Adding a third format
+means a third class and one line in the factory; nothing else in the plugin
+learns a new name.
 
-Full history in [CHANGELOG.md](CHANGELOG.md).
+### How detection actually works
 
-## Author
+| Importer | Test |
+|---|---|
+| Legacy | `version === '0.4'`, **or** a `page_settings` array is present |
+| v4 | a `settings` array is present **and** `page_settings` is absent |
 
-**Al Amin Ahamed** — [alaminahamed.com](https://alaminahamed.com)
+The factory tries legacy first, and the comment in the source says why: legacy is
+the only format carrying an explicit version marker, so it can answer with
+certainty. v4 is inferred from shape, which is a weaker signal and therefore goes
+second. The `! isset( $data['page_settings'] )` clause is what stops a legacy file
+matching both.
+
+### Applying the settings
+
+`Kit_Manager::apply_settings()` writes into the active kit and then calls
+`clear_cache()`. Elementor caches compiled CSS per kit, so settings written
+without clearing it produce a site that has the new colours in the database and
+the old ones on screen.
+
+### Data
+
+No tables and no options of its own. Everything is written into Elementor's
+active kit, which is where Elementor expects to find it — so uninstalling this
+plugin leaves an imported kit exactly as it was.
 
 ## License
 
-GPL-2.0-or-later — see [LICENSE.txt](LICENSE)
+GPL-2.0-or-later. See [`LICENSE`](LICENSE).
