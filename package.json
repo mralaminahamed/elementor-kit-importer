@@ -10,11 +10,13 @@
     "start": "wp-scripts start",
     "lint:js": "wp-scripts lint-js src",
     "test:js": "wp-scripts test-unit-js",
-    "test:js:watch": "wp-scripts test-unit-js --watch"
+    "test:js:watch": "wp-scripts test-unit-js --watch",
+    "shots:banners": "playwright test --config=playwright.assets.config.ts --project=banners"
   },
   "devDependencies": {
     "@wordpress/jest-preset-default": "^12.47.0",
-    "@wordpress/scripts": "^32.3.0"
+    "@wordpress/scripts": "^32.3.0",
+    "@playwright/test": "^1.58.2"
   },
   "packageManager": "yarn@4.15.0"
 }
